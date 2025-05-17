@@ -179,9 +179,10 @@ describe("hack-nft", () => {
         collectionMasterEditionAccount: collectionMasterEdition,
       }).sendAndConfirm(umi);
       console.log("✅ Collection NFT Verified!");
+
+      
     } catch (error) {
       console.error("Error verifying sized collection:", error);
-      
       // If that fails, try the standard verification
       try {
         await verifyCollection(umi, {
