@@ -166,91 +166,119 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
   }
 
   return (
-    <Card className="w-full max-w-4xl">
-      <CardHeader>
-        <CardTitle>Mint AI Model NFT</CardTitle>
-        <CardDescription>
-          Create an NFT for your AI model with detailed metadata
-        </CardDescription>
-      </CardHeader>
-      <form onSubmit={handleSubmit}>
-        <Tabs defaultValue="basic">
-          <TabsList className="grid grid-cols-5 w-full">
-            <TabsTrigger value="basic">Basic Info</TabsTrigger>
-            <TabsTrigger value="model">Model Details</TabsTrigger>
-            <TabsTrigger value="metrics">Metrics</TabsTrigger>
-            <TabsTrigger value="content">Content</TabsTrigger>
-            <TabsTrigger value="licensing">Licensing</TabsTrigger>
+    <Card className="max-w-2xl mx-auto mt-10 bg-black/70 border border-white/10 shadow-2xl rounded-3xl backdrop-blur-xl p-0">
+      <form onSubmit={handleSubmit} className="space-y-0">
+        <div className="px-8 pt-8 pb-2 flex flex-col items-center">
+          <h2 className="text-3xl font-extrabold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent mb-2 font-mono tracking-tight drop-shadow-lg">
+            Mint Your AI Model NFT
+          </h2>
+          <p className="text-gray-400 text-base mb-4 text-center max-w-lg">
+            Fill in the details below to mint your AI model as a unique NFT on the blockchain.
+          </p>
+        </div>
+        <Tabs defaultValue="basic" className="w-full">
+          <TabsList className="flex justify-center gap-2 bg-black/30 rounded-xl p-2 mb-4">
+            <TabsTrigger value="basic" className="flex items-center gap-1">
+              <span>📝</span> Basic
+            </TabsTrigger>
+            <TabsTrigger value="model" className="flex items-center gap-1">
+              <span>🤖</span> Model
+            </TabsTrigger>
+            <TabsTrigger value="metrics" className="flex items-center gap-1">
+              <span>📊</span> Metrics
+            </TabsTrigger>
+            <TabsTrigger value="content" className="flex items-center gap-1">
+              <span>📦</span> Content
+            </TabsTrigger>
+            <TabsTrigger value="licensing" className="flex items-center gap-1">
+              <span>🔖</span> Licensing
+            </TabsTrigger>
           </TabsList>
-          
+
           {/* Basic Info Tab */}
-          <TabsContent value="basic" className="space-y-4 p-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Name *</Label>
-              <Input
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="GPT-2 Small Fine-tuned"
-                required
-              />
-            </div>
+          <TabsContent value="basic" className="space-y-6 p-6">
+            <div className="bg-black/40 border border-white/10 rounded-2xl shadow-lg p-6 mb-6">
+              <h3 className="text-2xl font-extrabold mb-6 flex items-center gap-3 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent font-mono tracking-tight drop-shadow-lg">
+                <span className="text-xl">📝</span>
+                Basic Information
+              </h3>
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="name" className="text-base font-semibold">Name <span className="text-red-400">*</span></Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Model Name"
+                    required
+                    className="mt-1 w-full px-4 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:ring-2 focus:ring-white/40 focus:border-white/30 transition"
+                  />
+                </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="symbol">Symbol *</Label>
-              <Input
-                id="symbol"
-                name="symbol"
-                value={formData.symbol}
-                onChange={handleChange}
-                placeholder="AI"
-                required
-              />
-            </div>
+                <div>
+                  <Label htmlFor="symbol" className="text-base font-semibold">Symbol <span className="text-red-400">*</span></Label>
+                  <Input
+                    id="symbol"
+                    name="symbol"
+                    value={formData.symbol}
+                    onChange={handleChange}
+                    placeholder="AI"
+                    required
+                    className="mt-1 w-full px-4 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:ring-2 focus:ring-white/40 focus:border-white/30 transition"
+                  />
+                </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
-              <Textarea
-                id="description"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                placeholder="Language model fine-tuned for..."
-                rows={3}
-              />
-            </div>
+                <div>
+                  <Label htmlFor="description" className="text-base font-semibold">Description</Label>
+                  <Textarea
+                    id="description"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    placeholder="Language model fine-tuned for..."
+                    rows={3}
+                    className="mt-1 w-full px-4 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:ring-2 focus:ring-white/40 focus:border-white/30 transition"
+                  />
+                </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="sellerFee">Royalty (%)</Label>
-              <Input
-                id="sellerFee"
-                name="sellerFee"
-                type="number"
-                min="0"
-                max="100"
-                value={formData.sellerFee}
-                onChange={handleChange}
-                placeholder="5"
-              />
-              <p className="text-xs text-gray-500">Percentage fee you earn on secondary sales (0-100%)</p>
-            </div>
+                <div>
+                  <Label htmlFor="sellerFee" className="text-base font-semibold">Royalty (%)</Label>
+                  <Input
+                    id="sellerFee"
+                    name="sellerFee"
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={formData.sellerFee}
+                    onChange={handleChange}
+                    placeholder="5"
+                    className="mt-1 w-full px-4 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:ring-2 focus:ring-white/40 focus:border-white/30 transition"
+                  />
+                  <p className="text-xs text-gray-400 mt-1">Percentage fee you earn on secondary sales (0-100%)</p>
+                </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="image">Image URL</Label>
-              <Input
-                id="image"
-                name="image"
-                value={formData.image}
-                onChange={handleChange}
-                placeholder="https://example.com/image.png"
-              />
-              <p className="text-xs text-gray-500">Enter a URL to your image or leave empty to generate a random image</p>
+                <div>
+                  <Label htmlFor="image" className="text-base font-semibold">Image URL</Label>
+                  <Input
+                    id="image"
+                    name="image"
+                    value={formData.image}
+                    onChange={handleChange}
+                    placeholder="https://example.com/image.png"
+                    className="mt-1 w-full px-4 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:ring-2 focus:ring-white/40 focus:border-white/30 transition"
+                  />
+                  <p className="text-xs text-gray-400 mt-1">Enter a URL to your image or leave empty to generate a random image</p>
+                </div>
+              </div>
             </div>
           </TabsContent>
           
           {/* Model Details Tab */}
-          <TabsContent value="model" className="space-y-4 p-4">
+          <TabsContent value="model" className="space-y-6 p-6">
+            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+              <span>🤖</span> Model Details
+            </h3>
             <div className="space-y-2">
               <Label htmlFor="version">Version</Label>
               <Input
@@ -329,7 +357,10 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
           </TabsContent>
           
           {/* Metrics Tab */}
-          <TabsContent value="metrics" className="space-y-4 p-4">
+          <TabsContent value="metrics" className="space-y-6 p-6">
+            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+              <span>📊</span> Performance Metrics
+            </h3>
             <div className="space-y-2">
               <Label htmlFor="accuracyScore">Accuracy Score (0-1)</Label>
               <Input
@@ -373,19 +404,22 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
           </TabsContent>
           
           {/* Content Tab */}
-          <TabsContent value="content" className="space-y-4 p-4">
-            <div>
-              <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="modelFile">
-                Upload Model File *
-              </label>
-              <input
-                id="modelFile"
-                type="file"
-                accept=".pt,.onnx,.pkl,.zip"
-                onChange={handleFileUpload}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-              />
-              {status && <p className="mt-2 text-sm text-gray-500">{status}</p>}
+          <TabsContent value="content" className="space-y-6 p-6">
+            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+              <span>📦</span> Model Content
+            </h3>
+            <div className="space-y-2">
+              <Label htmlFor="modelFile" className="text-base font-semibold">Upload Model File *</Label>
+              <div className="bg-black/30 border border-white/10 rounded-xl p-4 flex flex-col items-center">
+                <input
+                  id="modelFile"
+                  type="file"
+                  accept=".pt,.onnx,.pkl,.zip"
+                  onChange={handleFileUpload}
+                  className="w-full px-4 py-2 border border-gray-400/30 rounded-lg focus:ring-2 focus:ring-white/60 focus:border-white/40 transition bg-black/40 text-white"
+                />
+                {status && <p className="mt-2 text-sm text-gray-400">{status}</p>}
+              </div>
             </div>
             
             <div>
@@ -454,7 +488,10 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
           </TabsContent>
           
           {/* Licensing Tab */}
-          <TabsContent value="licensing" className="space-y-4 p-4">
+          <TabsContent value="licensing" className="space-y-6 p-6">
+            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+              <span>🔖</span> Licensing
+            </h3>
             <div className="space-y-2">
               <Label htmlFor="licenseType">License Type</Label>
               <Select 
@@ -514,8 +551,12 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
           </TabsContent>
         </Tabs>
 
-        <CardFooter className="pt-6">
-          <Button type="submit" className="w-full" disabled={mintNft.isPending || !ipfsURI}>
+        <CardFooter className="pt-6 px-8 pb-8">
+          <Button
+            type="submit"
+            className="w-full bg-gradient-to-r from-white to-gray-300 text-black font-bold shadow-lg hover:scale-105 transition-transform border-0 text-lg py-3"
+            disabled={mintNft.isPending || !ipfsURI}
+          >
             {mintNft.isPending ? 'Minting...' : 'Mint AI Model NFT'}
           </Button>
         </CardFooter>

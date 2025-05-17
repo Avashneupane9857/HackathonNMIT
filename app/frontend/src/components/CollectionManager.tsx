@@ -125,78 +125,90 @@ export const CollectionManager: FC<CollectionManagerProps> = ({ onSuccess }) => 
   
   if (!wallet.connected) {
     return (
-      <Card>
+      <Card className="bg-black/70 border border-white/10 shadow-2xl rounded-3xl backdrop-blur-xl">
         <CardHeader>
-          <CardTitle>Create Collection</CardTitle>
-          <CardDescription>Connect your wallet to create NFT collections</CardDescription>
+          <CardTitle className="text-2xl font-extrabold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent font-mono tracking-tight drop-shadow-lg">
+            Create Collection
+          </CardTitle>
+          <CardDescription className="text-gray-400">Connect your wallet to create NFT collections</CardDescription>
         </CardHeader>
       </Card>
     );
   }
   
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Create NFT Collection</CardTitle>
-        <CardDescription>Create a collection for your NFTs</CardDescription>
-      </CardHeader>
-      <form onSubmit={handleSubmit}>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="name">Collection Name</Label>
-            <Input
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="My Amazing Collection"
-              required
-            />
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="symbol">Symbol</Label>
-            <Input
-              id="symbol"
-              name="symbol"
-              value={formData.symbol}
-              onChange={handleChange}
-              placeholder="COL"
-              required
-            />
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
-            <Textarea
-              id="description"
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              placeholder="Describe your collection"
-              rows={3}
-            />
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="image">Cover Image URL</Label>
-            <Input
-              id="image"
-              name="image"
-              value={formData.image}
-              onChange={handleChange}
-              placeholder="https://example.com/image.png"
-            />
-            <p className="text-xs text-gray-500">
-              Enter a URL to your collection cover image or leave empty to generate a random image
-            </p>
+    <Card className="bg-black/70 border border-white/10 shadow-2xl rounded-3xl backdrop-blur-xl">
+      <form onSubmit={handleSubmit} className="flex flex-col">
+        <CardHeader>
+          <CardTitle className="text-2xl font-extrabold bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent font-mono tracking-tight drop-shadow-lg flex items-center gap-3">
+            <span className="text-xl">📚</span>
+            Create NFT Collection
+          </CardTitle>
+          <CardDescription className="text-gray-400">Create a collection for your NFTs</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="bg-black/40 border border-white/10 rounded-2xl shadow-lg p-6 mb-2">
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="name" className="text-base font-semibold">Collection Name <span className="text-red-400">*</span></Label>
+                <Input
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="My Amazing Collection"
+                  required
+                  className="mt-1 w-full px-4 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:ring-2 focus:ring-white/40 focus:border-white/30 transition"
+                />
+              </div>
+              
+              <div>
+                <Label htmlFor="symbol" className="text-base font-semibold">Symbol <span className="text-red-400">*</span></Label>
+                <Input
+                  id="symbol"
+                  name="symbol"
+                  value={formData.symbol}
+                  onChange={handleChange}
+                  placeholder="COL"
+                  required
+                  className="mt-1 w-full px-4 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:ring-2 focus:ring-white/40 focus:border-white/30 transition"
+                />
+              </div>
+              
+              <div>
+                <Label htmlFor="description" className="text-base font-semibold">Description</Label>
+                <Textarea
+                  id="description"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  placeholder="Describe your collection"
+                  rows={3}
+                  className="mt-1 w-full px-4 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:ring-2 focus:ring-white/40 focus:border-white/30 transition"
+                />
+              </div>
+              
+              <div>
+                <Label htmlFor="image" className="text-base font-semibold">Cover Image URL</Label>
+                <Input
+                  id="image"
+                  name="image"
+                  value={formData.image}
+                  onChange={handleChange}
+                  placeholder="https://example.com/image.png"
+                  className="mt-1 w-full px-4 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:ring-2 focus:ring-white/40 focus:border-white/30 transition"
+                />
+                <p className="text-xs text-gray-400 mt-1">
+                  Enter a URL to your collection cover image or leave empty to generate a random image
+                </p>
+              </div>
+            </div>
           </div>
         </CardContent>
-        
-        <CardFooter>
+        <CardFooter className="pt-4 px-6 pb-8">
           <Button 
             type="submit" 
-            className="w-full" 
+            className="w-full bg-gradient-to-r from-white to-gray-300 text-black font-bold shadow-lg hover:scale-105 transition-transform border-0 text-lg py-3"
             disabled={createCollectionMutation.isPending}
           >
             {createCollectionMutation.isPending ? 'Creating...' : 'Create Collection'}
