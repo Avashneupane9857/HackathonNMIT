@@ -3,7 +3,7 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { AnchorProvider, Program, web3 } from "@coral-xyz/anchor";
 
 import idl from '@/target/idl/hack_nft.json';
-import { HackNft } from '@/target/types/hack_nft';
+import { HackNft } from '@/utils/types/hack_nft';
 const PROGRAM_ID = new web3.PublicKey('711gctwBN1aGqzRhQbDD3qiescrzg4m9Zjj1ZGndLDis');
 const NETWORK = 'https://api.devnet.solana.com';
 

@@ -1,6 +1,6 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
-import { HackNft } from "../target/types/hack_nft";
+import { HackNft } from "../utils/types/hack_nft";
 
 import {
   createNft,
