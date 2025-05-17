@@ -32,6 +32,8 @@ export interface NFT {
   price?: number;
   maker?: string;
   isListed?: boolean;
+  owner?: string;
+  animation_url?: string;
 }
 
 // Fallback function to generate a deterministic image URL from mint address if metadata doesn't have one
@@ -133,6 +135,8 @@ export function useNfts() {
             description: jsonMetadata.description,
             attributes: jsonMetadata.attributes,
             collectionMint,
+            owner: wallet.publicKey.toString(),
+            animation_url: jsonMetadata.animation_url,
           });
 
         } catch (error) {
@@ -144,6 +148,7 @@ export function useNfts() {
             mint,
             name: `NFT ${mint.slice(0, 8)}`,
             image: getImageUrlFromMint(mint),
+            owner: wallet.publicKey.toString(),
           });
         }
       }
