@@ -125,3 +125,40 @@
   @apply !border !bg-background !shadow-xs hover:!bg-accent !text-accent-foreground hover:!text-accent-foreground dark:!bg-input/30 !border-input/10 dark:!border-input dark:hover:!bg-input/50;
   @apply !px-2 !py-[6px] !rounded-md !text-sm !font-semibold !shadow-sm !transition-all;
 }
+
+@keyframes float {
+  0% { transform: translateY(0);}
+  100% { transform: translateY(-8px);}
+}
+.animate-float { animation: float 2.5s ease-in-out infinite alternate; }
+
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+.animate-spin-slow { animation: spin 6s linear infinite; }
+
+@keyframes border-move {
+  0% { background-position: 0% 50%;}
+  100% { background-position: 100% 50%;}
+}
+.animated-border {
+  background: linear-gradient(90deg, #fff, #ccc, #fff, #ccc);
+  background-size: 200% 200%;
+  animation: border-move 4s linear infinite;
+}
+
+@keyframes blob-move {
+  0%, 100% { transform: translateY(0) scale(1);}
+  50% { transform: translateY(-20px) scale(1.1);}
+}
+.animated-blob { animation: blob-move 8s ease-in-out infinite; }
+
+@keyframes gradient-move {
+  0% { background-position: 0% 50%;}
+  100% { background-position: 100% 50%;}
+}
+.animated-gradient-text {
+  background-size: 200% 200%;
+  animation: gradient-move 4s linear infinite;
+}
