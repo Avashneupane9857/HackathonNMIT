@@ -3,7 +3,7 @@ import { Alert, AlertDescription, AlertTitle } from './ui/Myalert'
 
 export function DevnetAlert() {
   return (
-    <Alert variant={'caution'}>
+    <Alert variant={'default'}>
       <TriangleAlertIcon className="size-5" />
       <AlertTitle>Devnet ONLY</AlertTitle>
       <AlertDescription>

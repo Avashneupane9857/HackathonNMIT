@@ -14,14 +14,15 @@ import { ArrowRight, Sparkles, ShoppingCart, TwitterIcon } from 'lucide-react'
 import { containerVariants, fadeInUp, itemVariants } from '@/utils/motion'
 import { AnimatedModalDemo } from '@/components/nft-update'
 import { DevnetAlert } from '@/components/devnet-alert'
+import { TestiMonials } from '@/components/ui/testimonial'
 
 export default function Home() {
   return (
     <div className="bg-gradient-to-br from-primary to-secondary text-white">
       <div className="bg-background bg-opacity-0 ">
-        <div className="container mx-auto pt-4 px-4 ">
+        {/* <div className="container mx-auto pt-4 px-4 ">
           <DevnetAlert />
-        </div>
+        </div> */}
 
         <motion.section
           initial="hidden"
@@ -121,6 +122,7 @@ export default function Home() {
             </div>
           </div>
         </motion.section>
+        <TestiMonials />
 
         <motion.section
           initial="hidden"
