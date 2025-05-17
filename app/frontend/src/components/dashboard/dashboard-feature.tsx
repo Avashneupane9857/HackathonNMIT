@@ -41,7 +41,6 @@ export default function DashboardFeature() {
     <main className="container mx-auto p-4 max-w-6xl">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Solana NFT Marketplace</h1>
-        <ConnectWalletButton />
       </div>
 
       <ClientOnly>
@@ -61,12 +60,22 @@ export default function DashboardFeature() {
               }
               className="mb-6"
             >
-              <TabsList className="grid grid-cols-4 mb-6 w-full md:w-auto">
-                <TabsTrigger value="my-nfts">My NFTs</TabsTrigger>
-                <TabsTrigger value="marketplace">Marketplace</TabsTrigger>
-                <TabsTrigger value="mint">Mint NFT</TabsTrigger>
-                <TabsTrigger value="collections">Collections</TabsTrigger>
-              </TabsList>
+              <div className="flex justify-center gap-4 pt-6">
+                {['my-nfts', 'marketplace', 'mint', 'collections'].map((key) => (
+                  <Button
+                    key={key}
+                    variant={activeTab === key ? 'default' : 'secondary'}
+                    onClick={() => setActiveTab(key as typeof activeTab)}
+                    className={`capitalize ${
+                      activeTab === key
+                        ? 'bg-white text-black dark:bg-white dark:text-black'
+                        : 'bg-zinc-800 text-zinc-400'
+                    }`}
+                  >
+                    {key.replace('-', ' ')}
+                  </Button>
+                ))}
+              </div>
 
               <TabsContent value="my-nfts">
                 <h2 className="text-2xl font-semibold mb-4">My NFTs</h2>
@@ -127,7 +136,6 @@ export default function DashboardFeature() {
                 <div className="max-w-md mx-auto">
                   <NFTMintForm
                     onSuccess={() => {
-                      // After minting, refresh the NFT list and switch to My NFTs tab
                       userNfts.refetch()
                       setActiveTab('my-nfts')
                     }}

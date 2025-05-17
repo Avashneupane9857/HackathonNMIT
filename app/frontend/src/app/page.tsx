@@ -144,30 +144,22 @@ export default function Home() {
             </motion.div>
           </div>
 
-          <div className="flex justify-center items-center mt-16">
-            <div className="text-center">
-              <p className="text-center text-lg leading-loose">
-                Built by{' '}
-                <a
-                  href="https://x.com/_dwightschrutee"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-medium underline underline-offset-4"
-                >
-                  @pawan
-                </a>
-                . Source code is available on{' '}
-                <a
-                  href="https://github.com/Pawan2061/npc_market/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-medium underline underline-offset-4"
-                >
-                  Github
-                </a>
-                .
-              </p>
-            </div>
+          <div className="flex flex-col items-center justify-center mt-16 space-y-2 text-center text-white">
+            <p className="text-lg leading-relaxed">
+              Built by <span className="font-medium underline underline-offset-4">Team Kraken</span>
+            </p>
+            <p className="text-lg leading-relaxed">
+              Source code is available on{' '}
+              <a
+                href="https://github.com/Avashneupane9857/HackathonNMIT"
+                target="_blank"
+                rel="noreferrer"
+                className="font-medium underline underline-offset-4 hover:text-gray-400 transition-colors"
+              >
+                GitHub
+              </a>
+              .
+            </p>
           </div>
         </motion.section>
       </div>
