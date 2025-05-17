@@ -1,74 +1,165 @@
-'use client';
+'use client'
 
-import { FC, useState, useEffect } from 'react';
-import Image from 'next/image';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { useMarketplace } from '@/hooks/useMarketplace';
-import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { NFT } from '@/hooks/useNfts';
-import { Badge } from '@/components/ui/badge';
-import { DownloadIcon, Info } from 'lucide-react';
-import { downloadZipFromIpfs } from '@/utils/ipfs';
-import { toast } from 'sonner';
+import { FC, useState, useEffect } from 'react'
+import Image from 'next/image'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { useMarketplace } from '@/hooks/useMarketplace'
+import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
+import { useWallet } from '@solana/wallet-adapter-react'
+import { NFT } from '@/hooks/useNfts'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { Badge } from '@/components/ui/badge'
+import { DownloadIcon } from 'lucide-react'
+import { downloadZipFromIpfs } from '@/utils/ipfs'
+import { toast } from 'sonner'
 
 interface NftCardProps {
-  nft: NFT;
-  onSuccess?: () => void;
+  nft: NFT
+  onSuccess?: () => void
 }
 
 export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
-  const { listNft, delistNft, purchaseNft } = useMarketplace();
-  const wallet = useWallet();
-  const [price, setPrice] = useState(0.1);
-  const [showPriceInput, setShowPriceInput] = useState(false);
-  const [imageError, setImageError] = useState(false);
-  const [isOwned, setIsOwned] = useState(false);
-  const [modelFileUrl, setModelFileUrl] = useState<string | null>(null);
+  const { listNft, delistNft, purchaseNft } = useMarketplace()
+  const wallet = useWallet()
+  const [price, setPrice] = useState(0.1) // Default price in SOL
+  const [showPriceInput, setShowPriceInput] = useState(false)
+  const [imageError, setImageError] = useState(false)
+  const [showDetails, setShowDetails] = useState(false)
+  const [isOwned, setIsOwned] = useState(false)
+  const [modelFileUrl, setModelFileUrl] = useState<string | null>(null)
 
-  const isOwner = nft.maker === wallet.publicKey?.toString();
+  const isOwner = nft.maker === wallet.publicKey?.toString()
 
+  // Check if the current user owns this NFT
   useEffect(() => {
     if (wallet.publicKey) {
-      if (isOwner) setIsOwned(true);
-      else if (nft.owner === wallet.publicKey.toString()) setIsOwned(true);
-    }
-  }, [wallet.publicKey, nft, isOwner]);
+      // The user created the NFT
+      if (isOwner) {
+        setIsOwned(true)
+      }
 
+      // Or they purchased it (check for ownership in this case)
+      else if (nft.owner === wallet.publicKey.toString()) {
+        setIsOwned(true)
+      }
+    }
+  }, [wallet.publicKey, nft, isOwner])
+
+  // Extract model file URL from NFT metadata attributes or properties
   useEffect(() => {
     if (nft.attributes) {
-      const modelWeightAttr = nft.attributes.find(attr =>
-        attr.trait_type === 'Model Weights CID' ||
-        attr.trait_type === 'animation_url'
-      );
+      // Look for Model Weights CID in attributes
+      const modelWeightAttr = nft.attributes.find(
+        (attr) => attr.trait_type === 'Model Weights CID' || attr.trait_type === 'animation_url',
+      )
+
       if (modelWeightAttr?.value) {
-        if (typeof modelWeightAttr.value === 'string' &&
-          (modelWeightAttr.value.startsWith('http') || modelWeightAttr.value.startsWith('ipfs'))) {
-          setModelFileUrl(modelWeightAttr.value);
-        } else if (typeof modelWeightAttr.value === 'string') {
-          setModelFileUrl(`https://ipfs.io/ipfs/${modelWeightAttr.value.replace('ipfs://', '')}`);
+        // If it's a full URL, use it directly
+        if (
+          typeof modelWeightAttr.value === 'string' &&
+          (modelWeightAttr.value.startsWith('http') || modelWeightAttr.value.startsWith('ipfs'))
+        ) {
+          setModelFileUrl(modelWeightAttr.value)
+        }
+        // If it's just a CID, convert to IPFS URL
+        else if (typeof modelWeightAttr.value === 'string') {
+          setModelFileUrl(`https://ipfs.io/ipfs/${modelWeightAttr.value.replace('ipfs://', '')}`)
         }
       }
     }
-    if (nft.animation_url) setModelFileUrl(nft.animation_url);
-  }, [nft]);
+
+    // Check animation_url in main metadata if available
+    if (nft.animation_url) {
+      setModelFileUrl(nft.animation_url)
+    }
+  }, [nft])
+
+  const handleList = async () => {
+    if (!nft.collectionMint) {
+      console.error('Collection mint is required for listing')
+      return
+    }
+
+    try {
+      await listNft.mutateAsync({
+        price,
+        nftMint: new PublicKey(nft.mint),
+        collectionMint: new PublicKey(nft.collectionMint),
+      })
+
+      setShowPriceInput(false)
+      if (onSuccess) onSuccess()
+    } catch (error) {
+      console.error('Error listing NFT:', error)
+    }
+  }
+
+  const handleDelist = async () => {
+    try {
+      await delistNft.mutateAsync({
+        nftMint: new PublicKey(nft.mint),
+      })
+
+      if (onSuccess) onSuccess()
+    } catch (error) {
+      console.error('Error delisting NFT:', error)
+    }
+  }
 
   const handlePurchase = async () => {
-    if (!nft.maker) return;
+    if (!nft.maker) return
+
     try {
       await purchaseNft.mutateAsync({
         nftMint: new PublicKey(nft.mint),
-        maker: new PublicKey(nft.maker)
-      });
-      if (onSuccess) onSuccess();
+        maker: new PublicKey(nft.maker),
+      })
+
+      if (onSuccess) onSuccess()
     } catch (error) {
-      console.error("Error purchasing NFT:", error);
+      console.error('Error purchasing NFT:', error)
     }
-  };
+  }
+
+  const handleDownload = async () => {
+    if (!modelFileUrl) {
+      toast.error('No model file available to download')
+      return
+    }
+
+    try {
+      toast.loading('Preparing download...')
+
+      if (modelFileUrl.startsWith('https://ipfs.io/ipfs/')) {
+        const cid = modelFileUrl.replace('https://ipfs.io/ipfs/', '')
+        await downloadZipFromIpfs(`ipfs://${cid}`)
+      } else if (modelFileUrl.startsWith('ipfs://')) {
+        await downloadZipFromIpfs(modelFileUrl)
+      } else {
+        // Direct download for other URLs
+        window.open(modelFileUrl, '_blank')
+      }
+
+      toast.dismiss()
+      toast.success('Download started')
+    } catch (error) {
+      console.error('Error downloading model:', error)
+      toast.error('Failed to download model file')
+    }
+  }
 
   // Truncate mint address for display
-  const truncateMint = (mint: string) => `${mint.slice(0, 4)}...${mint.slice(-4)}`;
+  const truncateMint = (mint: string) => {
+    return `${mint.slice(0, 4)}...${mint.slice(-4)}`
+  }
 
   // Status badge logic
   const status = nft.isListed
@@ -78,6 +169,7 @@ export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
 
   return (
     <Card className="rounded-2xl bg-black/70 border border-white/10 shadow-xl overflow-hidden flex flex-col transition-transform hover:-translate-y-1 hover:shadow-2xl duration-200">
+      {/* Image & Status */}
       <div className="relative w-full aspect-square bg-black/30">
         {nft.image && !imageError ? (
           <Image
@@ -96,6 +188,8 @@ export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
           {status}
         </span>
       </div>
+
+      {/* Title, Collection, Description */}
       <CardContent className="flex flex-col flex-1 p-4">
         <div className="flex items-center justify-between mb-1">
           <h3 className="font-bold text-lg truncate">{nft.name}</h3>
@@ -118,7 +212,6 @@ export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
               onClick={handlePurchase}
               disabled={purchaseNft.isPending}
             >
-              <Info className="w-4 h-4" />
               Buy
             </Button>
           ) : (
@@ -130,4 +223,4 @@ export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
       </CardContent>
     </Card>
   );
-};
+}
