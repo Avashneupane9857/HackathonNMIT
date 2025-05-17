@@ -4,9 +4,8 @@ const nextConfig: NextConfig = {
   /* config options here */
 
   images: {
-    domains: ['picsum.photos'],
+    domains: ['source.unsplash.com', 'QmExampleHashForLaptopImage', 'ipfs.io', 'picsum.photos'],
   },
-  
 }
 
 export default nextConfig
