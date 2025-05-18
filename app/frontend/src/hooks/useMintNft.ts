@@ -115,7 +115,7 @@ export const useMintNft = () => {
             symbol: params.symbol || 'COLL',
             description: params.description || 'My NFT Collection',
             image: params.image,
-            sellerFeeBasisPoints: params.sellerFeeBasisPoints ? Math.min(params.sellerFeeBasisPoints, 10000) : 550,
+            sellerFeeBasisPoints: 1,
           })
 
           collectionMintAddress = collectionResult.mint
@@ -138,8 +138,7 @@ export const useMintNft = () => {
       const imageUrl = params.image || getRandomImageUrl(params.name || 'NFT')
 
       // Use percentAmount to convert the seller fee basis points - ensure it's in valid range (0-10000)
-      const basisPoints =
-        params.sellerFeeBasisPoints !== undefined ? Math.min(Math.max(0, params.sellerFeeBasisPoints), 10000) : 550
+      const basisPoints = 1
 
       console.log('Using seller fee basis points:', basisPoints)
 
