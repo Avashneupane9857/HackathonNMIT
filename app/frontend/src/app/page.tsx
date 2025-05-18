@@ -163,6 +163,144 @@ export default function Home() {
         {/* Testimonials and CTA */}
         <TestiMonials />
 
+        {/* Stats Section - Add visual interest between testimonials and footer */}
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={containerVariants}
+          className="py-16 relative overflow-hidden"
+        >
+          {/* Animated gradient background */}
+          <div 
+            className="absolute inset-0 pointer-events-none" 
+            style={{
+              background: 'radial-gradient(ellipse at 50% 50%, rgba(161,140,209,0.15) 0%, transparent 70%)',
+              zIndex: 0,
+            }}
+          />
+          
+          {/* Stats Cards */}
+          <div className="container mx-auto px-4 relative z-10">
+            <motion.h2 
+              variants={fadeInUp} 
+              className="text-3xl md:text-4xl font-bold text-center mb-16 tracking-tight"
+            >
+              Powering the Future of <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#a18cd1] to-[#fbc2eb]">AI Ownership</span>
+            </motion.h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+              {[
+                { value: "5K+", label: "AI Models", icon: "🧠" },
+                { value: "2.4M", label: "Trading Volume", icon: "💰" },
+                { value: "10K+", label: "Creators", icon: "👩‍💻" },
+                { value: "100%", label: "Decentralized", icon: "🔗" },
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  whileHover={{ y: -5, scale: 1.03 }}
+                  className="bg-[#18192a]/30 backdrop-blur-sm border border-white/5 rounded-xl p-6 text-center shadow-xl"
+                  style={{
+                    boxShadow: '0 4px 20px rgba(161,140,209,0.15)'
+                  }}
+                >
+                  <div className="text-4xl mb-2">{stat.icon}</div>
+                  <div className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+                    {stat.value}
+                  </div>
+                  <div className="text-gray-400 mt-1">{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.section>
+        
+        {/* Wave Divider */}
+        <div className="relative h-24 overflow-hidden">
+          <div className="absolute w-full h-24 opacity-10">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="h-full w-full">
+              <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="url(#gradient)"></path>
+            </svg>
+            <defs>
+              <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#a18cd1" />
+                <stop offset="100%" stopColor="#fbc2eb" />
+              </linearGradient>
+            </defs>
+          </div>
+        </div>
+        
+        {/* Partners Marquee Section */}
+        <motion.section
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="py-12 bg-[#0a0a0a]/80 overflow-hidden"
+        >
+          <div className="container mx-auto px-4 mb-8">
+            <h3 className="text-xl text-center text-gray-400 mb-8 font-medium">Trusted by Leading Organizations</h3>
+          </div>
+          
+          {/* Infinite Marquee */}
+          <div className="relative flex overflow-x-hidden opacity-60">
+            <div className="animate-marquee whitespace-nowrap flex items-center">
+              {[
+                { name: 'Solana', icon: '◎' },
+                { name: 'AlchemyAPI', icon: '⚗️' },
+                { name: 'Arweave', icon: '🧵' },
+                { name: 'OpenSea', icon: '🌊' },
+                { name: 'Chainlink', icon: '⛓️' },
+                { name: 'Metaplex', icon: '🖼️' },
+                { name: 'Phantom', icon: '👻' },
+                { name: 'Audius', icon: '🎵' },
+                { name: 'Magic Eden', icon: '✨' },
+                { name: 'Tensor', icon: '🔢' },
+              ].map((partner, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ y: -5, scale: 1.1 }}
+                  className="flex items-center mx-8 bg-[#18192a]/30 backdrop-blur-sm px-6 py-3 rounded-full border border-white/5"
+                  style={{ 
+                    boxShadow: '0 4px 20px rgba(161,140,209,0.08)'
+                  }}
+                >
+                  <span className="text-2xl mr-3">{partner.icon}</span>
+                  <span className="text-gray-400 text-xl font-bold">{partner.name}</span>
+                </motion.div>
+              ))}
+            </div>
+            
+            <div className="absolute top-0 animate-marquee2 whitespace-nowrap flex items-center">
+              {[
+                { name: 'Solana', icon: '◎' },
+                { name: 'AlchemyAPI', icon: '⚗️' },
+                { name: 'Arweave', icon: '🧵' },
+                { name: 'OpenSea', icon: '🌊' },
+                { name: 'Chainlink', icon: '⛓️' },
+                { name: 'Metaplex', icon: '🖼️' },
+                { name: 'Phantom', icon: '👻' },
+                { name: 'Audius', icon: '🎵' },
+                { name: 'Magic Eden', icon: '✨' },
+                { name: 'Tensor', icon: '🔢' },
+              ].map((partner, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ y: -5, scale: 1.1 }}
+                  className="flex items-center mx-8 bg-[#18192a]/30 backdrop-blur-sm px-6 py-3 rounded-full border border-white/5"
+                  style={{ 
+                    boxShadow: '0 4px 20px rgba(161,140,209,0.08)'
+                  }}
+                >
+                  <span className="text-2xl mr-3">{partner.icon}</span>
+                  <span className="text-gray-400 text-xl font-bold">{partner.name}</span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.section>
+
         <motion.section
           initial="hidden"
           whileInView="visible"
@@ -184,42 +322,136 @@ export default function Home() {
               </Link>
             </motion.div>
           </div>
-          <div className="relative flex flex-col items-center justify-center mt-16 space-y-2 text-center">
-            {/* Animated border and glow */}
-            <div className="h-1 w-32 md:w-64 animated-border rounded-full mb-6" />
-            <div className="absolute -z-10 w-[340px] md:w-[500px] h-[180px] blur-2xl bg-gradient-to-br from-white/10 via-gray-400/10 to-black/0 rounded-3xl" />
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="backdrop-blur-xl bg-black/70 border border-white/10 rounded-3xl px-8 py-8 w-full max-w-xl flex flex-col items-center space-y-3 shadow-2xl"
-            >
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-4xl md:text-5xl animate-float drop-shadow-lg">🪐</span>
-                <span className="text-2xl md:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent font-mono drop-shadow-lg">
-                  NftAI
-                </span>
+        </motion.section>
+
+        {/* Enhanced Footer - Full Width */}
+        <motion.footer
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="w-full bg-gradient-to-b from-[#111] to-black border-t border-white/10 pt-16 pb-8"
+        >
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+              {/* Logo & About */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-4xl animate-float drop-shadow-lg">🪐</span>
+                  <span className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent font-mono drop-shadow-lg">
+                    NftAI
+                  </span>
+                </div>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  NftAI is revolutionizing the way AI models are traded, owned, and monetized through blockchain technology.
+                  Our mission is to empower creators and promote open innovation in artificial intelligence.
+                </p>
+                <div className="flex space-x-4 pt-2">
+                  <a href="https://twitter.com/nftai" target="_blank" rel="noreferrer" className="hover:text-[#a18cd1] transition-colors">
+                    <TwitterIcon size={20} />
+                  </a>
+                  <a href="https://discord.gg/nftai" target="_blank" rel="noreferrer" className="hover:text-[#a18cd1] transition-colors">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1971.3728.2914a.077.077 0 01-.0066.1277c-.598.3517-1.2195.6536-1.8732.8913a.076.076 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z" />
+                    </svg>
+                  </a>
+                  <a href="https://github.com/Avashneupane9857/HackathonNMIT" target="_blank" rel="noreferrer" className="hover:text-[#a18cd1] transition-colors">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                    </svg>
+                  </a>
+                </div>
               </div>
-              <p className="text-lg font-semibold text-gray-200">
-                Built by <span className="font-bold underline underline-offset-4 text-white">Team Kraken</span>
-              </p>
-              <p className="text-lg text-gray-300">
-                Source code:{' '}
-                <a
-                  href="https://github.com/Avashneupane9857/HackathonNMIT"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-bold underline underline-offset-4 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent hover:text-white transition-colors"
-                >
-                  GitHub
-                </a>
-              </p>
-              <p className="text-xs text-gray-500 mt-2 tracking-wide">
+
+              {/* Quick Links */}
+              <div>
+                <h3 className="text-lg font-bold mb-4 text-white">Quick Links</h3>
+                <ul className="space-y-2">
+                  <li>
+                    <Link href="/marketplace" className="text-gray-400 hover:text-white transition-colors">Marketplace</Link>
+                  </li>
+                  <li>
+                    <Link href="/mint" className="text-gray-400 hover:text-white transition-colors">Create NFT</Link>
+                  </li>
+                  <li>
+                    <Link href="/profile" className="text-gray-400 hover:text-white transition-colors">My Profile</Link>
+                  </li>
+                  <li>
+                    <Link href="/explore" className="text-gray-400 hover:text-white transition-colors">Explore</Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Resources */}
+              <div>
+                <h3 className="text-lg font-bold mb-4 text-white">Resources</h3>
+                <ul className="space-y-2">
+                  <li>
+                    <Link href="/docs" className="text-gray-400 hover:text-white transition-colors">Documentation</Link>
+                  </li>
+                  <li>
+                    <Link href="/faq" className="text-gray-400 hover:text-white transition-colors">FAQ</Link>
+                  </li>
+                  <li>
+                    <Link href="/blog" className="text-gray-400 hover:text-white transition-colors">Blog</Link>
+                  </li>
+                  <li>
+                    <Link href="/tutorials" className="text-gray-400 hover:text-white transition-colors">Tutorials</Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Contact Us */}
+              <div>
+                <h3 className="text-lg font-bold mb-4 text-white">Contact Us</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-2 text-gray-400">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="mt-1">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <span>Kathmandu, Nepal</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-gray-400">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <span>+977 9812345678</span>
+                  </li>
+                  <li className="flex items-center gap-2 text-gray-400">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <span>support@nftai.com</span>
+                  </li>
+                  <li className="mt-4">
+                    <Button variant="outline" className="border-[#a18cd1] hover:bg-[#a18cd1]/10">
+                      Get in Touch
+                    </Button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Bottom Footer */}
+            <div className="pt-8 mt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
+              <p className="text-gray-500 text-sm">
                 &copy; {new Date().getFullYear()} NftAI. All rights reserved.
               </p>
-            </motion.div>
+              <div className="flex space-x-6 mt-4 md:mt-0">
+                <Link href="/privacy" className="text-gray-500 text-sm hover:text-white transition-colors">
+                  Privacy Policy
+                </Link>
+                <Link href="/terms" className="text-gray-500 text-sm hover:text-white transition-colors">
+                  Terms of Service
+                </Link>
+                <Link href="/cookies" className="text-gray-500 text-sm hover:text-white transition-colors">
+                  Cookie Policy
+                </Link>
+              </div>
+            </div>
           </div>
-        </motion.section>
+        </motion.footer>
       </div>
     </div>
   )

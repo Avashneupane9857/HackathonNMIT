@@ -43,24 +43,25 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --background: 0 0% 4%;
+  --foreground: 0 0% 96%;
+  --card: 0 0% 6%;
+  --card-foreground: 0 0% 96%;
+  --popover: 0 0% 6%;
+  --popover-foreground: 0 0% 96%;
+  --primary: 262 83% 58%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 4% 16%;
+  --secondary-foreground: 0 0% 96%;
+  --muted: 0 0% 20%;
+  --muted-foreground: 0 0% 60%;
+  --accent: 240 4% 16%;
+  --accent-foreground: 0 0% 96%;
+  --destructive: 0 86% 97%;
+  --destructive-foreground: 0 0% 6%;
+  --border: 0 0% 15%;
+  --input: 0 0% 15%;
+  --ring: 262 83% 58%;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -74,27 +75,29 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --border-width: 1px;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --background: 0 0% 4%;
+  --foreground: 0 0% 96%;
+  --card: 0 0% 6%;
+  --card-foreground: 0 0% 96%;
+  --popover: 0 0% 6%;
+  --popover-foreground: 0 0% 96%;
+  --primary: 262 83% 58%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 4% 16%;
+  --secondary-foreground: 0 0% 96%;
+  --muted: 0 0% 20%;
+  --muted-foreground: 0 0% 60%;
+  --accent: 240 4% 16%;
+  --accent-foreground: 0 0% 96%;
+  --destructive: 0 86% 97%;
+  --destructive-foreground: 0 0% 6%;
+  --border: 0 0% 15%;
+  --input: 0 0% 15%;
+  --ring: 262 83% 58%;
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -161,4 +164,89 @@
 .animated-gradient-text {
   background-size: 200% 200%;
   animation: gradient-move 4s linear infinite;
+}
+
+@layer utilities {
+  /* Animation for floating elements */
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  /* Marquee animations for the infinite logo scroll */
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+  
+  .animate-marquee2 {
+    animation: marquee2 30s linear infinite;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes marquee2 {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Animated background blob */
+.animated-blob {
+  animation: blob-movement 10s infinite alternate;
+  filter: blur(30px);
+}
+
+@keyframes blob-movement {
+  0% {
+    transform: translate(0) rotate(0);
+  }
+  25% {
+    transform: translate(5%, 5%) rotate(10deg);
+  }
+  50% {
+    transform: translate(-5%, 10%) rotate(-10deg);
+  }
+  75% {
+    transform: translate(-10%, -5%) rotate(5deg);
+  }
+  100% {
+    transform: translate(8%, -8%) rotate(-5deg);
+  }
+}
+
+/* Animated gradient text */
+.animated-gradient-text {
+  background-size: 400% auto;
+  animation: gradientText 5s ease infinite;
+}
+
+@keyframes gradientText {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }

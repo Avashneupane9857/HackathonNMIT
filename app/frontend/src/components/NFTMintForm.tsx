@@ -55,7 +55,6 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
     licenseType: 'Academic',
     allowFineTuning: true,
     requireAttribution: true,
-    royaltyPercentage: 2.5,
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -106,7 +105,6 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
       type: formData.licenseType,
       allowFineTuning: formData.allowFineTuning,
       requireAttribution: formData.requireAttribution,
-      royaltyPercentage: formData.royaltyPercentage
     }
 
     mintNft.mutate({
@@ -531,23 +529,7 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
               <Label htmlFor="requireAttribution">Require Attribution</Label>
             </div>
             
-            <div className="space-y-2">
-              <Label htmlFor="royaltyPercentage">Royalty Percentage for Model Usage</Label>
-              <Input
-                id="royaltyPercentage"
-                name="royaltyPercentage"
-                type="number"
-                min="0"
-                max="100"
-                step="0.1"
-                value={formData.royaltyPercentage}
-                onChange={handleChange}
-                placeholder="2.5"
-              />
-              <p className="text-xs text-gray-500">
-                Percentage fee you earn when your model is used commercially (separate from NFT royalties)
-              </p>
-            </div>
+         
           </TabsContent>
         </Tabs>
 
