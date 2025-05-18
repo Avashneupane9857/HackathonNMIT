@@ -29,7 +29,7 @@ interface NftCardProps {
 export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
   const { listNft, delistNft, purchaseNft } = useMarketplace()
   const wallet = useWallet()
-  const [price, setPrice] = useState(0.1) // Default price in SOL
+  const [price, setPrice] = useState(0.1)
   const [showPriceInput, setShowPriceInput] = useState(false)
   const [imageError, setImageError] = useState(false)
   const [showDetails, setShowDetails] = useState(false)
@@ -37,46 +37,34 @@ export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
   const [modelFileUrl, setModelFileUrl] = useState<string | null>(null)
 
   const isOwner = nft.maker === wallet.publicKey?.toString()
-
-  // Check if the current user owns this NFT
   useEffect(() => {
     if (wallet.publicKey) {
-      // The user created the NFT
       if (isOwner) {
         setIsOwned(true)
-      }
-
-      // Or they purchased it (check for ownership in this case)
-      else if (nft.owner === wallet.publicKey.toString()) {
+      } else if (nft.owner === wallet.publicKey.toString()) {
         setIsOwned(true)
       }
     }
   }, [wallet.publicKey, nft, isOwner])
 
-  // Extract model file URL from NFT metadata attributes or properties
   useEffect(() => {
     if (nft.attributes) {
-      // Look for Model Weights CID in attributes
       const modelWeightAttr = nft.attributes.find(
         (attr) => attr.trait_type === 'Model Weights CID' || attr.trait_type === 'animation_url',
       )
 
       if (modelWeightAttr?.value) {
-        // If it's a full URL, use it directly
         if (
           typeof modelWeightAttr.value === 'string' &&
           (modelWeightAttr.value.startsWith('http') || modelWeightAttr.value.startsWith('ipfs'))
         ) {
           setModelFileUrl(modelWeightAttr.value)
-        }
-        // If it's just a CID, convert to IPFS URL
-        else if (typeof modelWeightAttr.value === 'string') {
+        } else if (typeof modelWeightAttr.value === 'string') {
           setModelFileUrl(`https://ipfs.io/ipfs/${modelWeightAttr.value.replace('ipfs://', '')}`)
         }
       }
     }
 
-    // Check animation_url in main metadata if available
     if (nft.animation_url) {
       setModelFileUrl(nft.animation_url)
     }
@@ -144,7 +132,6 @@ export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
       } else if (modelFileUrl.startsWith('ipfs://')) {
         await downloadZipFromIpfs(modelFileUrl)
       } else {
-        // Direct download for other URLs
         window.open(modelFileUrl, '_blank')
       }
 
@@ -156,14 +143,12 @@ export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
     }
   }
 
-  // Truncate mint address for display
   const truncateMint = (mint: string) => {
     return `${mint.slice(0, 4)}...${mint.slice(-4)}`
   }
 
   return (
     <Card className="overflow-hidden h-full flex flex-col rounded-2xl bg-black/70 border border-white/10 shadow-xl transition-transform duration-200 hover:-translate-y-1 hover:shadow-2xl group">
-      {/* Image & Status */}
       <div className="relative aspect-square bg-gradient-to-br from-black/60 via-gray-900/60 to-black/80">
         {nft.image && !imageError ? (
           <Image
@@ -223,7 +208,6 @@ export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
       </CardContent>
 
       <CardFooter className="flex flex-col gap-2 pt-2 px-4 pb-4">
-        {/* First row of buttons */}
         <div className="flex gap-2 w-full">
           {nft.isListed ? (
             isOwner ? (
@@ -231,7 +215,7 @@ export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
                 variant="destructive"
                 onClick={handleDelist}
                 disabled={delistNft.isPending}
-                className="w-full rounded-lg"
+                className="w-1/2 rounded-lg"
               >
                 {delistNft.isPending ? 'Delisting...' : 'Delist'}
               </Button>
@@ -239,13 +223,13 @@ export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
               <Button
                 onClick={handlePurchase}
                 disabled={purchaseNft.isPending}
-                className="w-full rounded-lg bg-gradient-to-r from-green-400/80 to-green-600/80 text-black font-bold hover:from-green-300 hover:to-green-500"
+                className="w-1/2 rounded-lg bg-gradient-to-r from-green-400/80 to-green-600/80 text-black font-bold hover:from-green-300 hover:to-green-500"
               >
                 {purchaseNft.isPending ? 'Buying...' : 'Buy Now'}
               </Button>
             )
           ) : showPriceInput ? (
-            <div className="flex w-full space-x-2">
+            <>
               <Button variant="outline" onClick={() => setShowPriceInput(false)} className="w-1/2 rounded-lg">
                 Cancel
               </Button>
@@ -256,74 +240,74 @@ export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
               >
                 {listNft.isPending ? 'Listing...' : 'Confirm'}
               </Button>
-            </div>
-          ) : (
-            <>
-              <Button variant="outline" onClick={() => setShowPriceInput(true)} className="w-1/2 rounded-lg">
-                List for Sale
-              </Button>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button variant="secondary" className="w-1/2 rounded-lg">
-                    Details
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-md">
-                  <DialogHeader>
-                    <DialogTitle>{nft.name}</DialogTitle>
-                    <DialogDescription>{nft.description || 'No description available'}</DialogDescription>
-                  </DialogHeader>
-
-                  <div className="grid gap-4 py-4">
-                    <div className="grid gap-2">
-                      <h3 className="font-semibold text-sm">Token Address</h3>
-                      <p className="text-xs break-all">{nft.mint}</p>
-                    </div>
-
-                    {nft.collectionMint && (
-                      <div className="grid gap-2">
-                        <h3 className="font-semibold text-sm">Collection</h3>
-                        <p className="text-xs break-all">{nft.collectionMint}</p>
-                      </div>
-                    )}
-
-                    {nft.uri && (
-                      <div className="grid gap-2">
-                        <h3 className="font-semibold text-sm">Metadata URI</h3>
-                        <p className="text-xs break-all">{nft.uri}</p>
-                      </div>
-                    )}
-
-                    {modelFileUrl && isOwned && (
-                      <div className="grid gap-2">
-                        <h3 className="font-semibold text-sm">Model File</h3>
-                        <Button onClick={handleDownload} className="text-xs">
-                          <DownloadIcon className="w-4 h-4 mr-2" /> Download Model File
-                        </Button>
-                      </div>
-                    )}
-
-                    {nft.attributes && nft.attributes.length > 0 && (
-                      <div className="grid gap-2">
-                        <h3 className="font-semibold text-sm">Attributes</h3>
-                        <div className="flex flex-wrap gap-2">
-                          {nft.attributes.map((attr, i) => (
-                            <div key={i} className="bg-secondary p-2 rounded-md text-xs">
-                              <span className="font-semibold">{attr.trait_type}: </span>
-                              <span>{attr.value}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </DialogContent>
-              </Dialog>
             </>
+          ) : (
+            <Button variant="outline" onClick={() => setShowPriceInput(true)} className="w-1/2 rounded-lg">
+              List for Sale
+            </Button>
           )}
+
+          {/* Details Button - Always available */}
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="secondary" className="w-1/2 rounded-lg">
+                Details
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>{nft.name}</DialogTitle>
+                <DialogDescription>{nft.description || 'No description available'}</DialogDescription>
+              </DialogHeader>
+
+              <div className="grid gap-4 py-4">
+                <div className="grid gap-2">
+                  <h3 className="font-semibold text-sm">Token Address</h3>
+                  <p className="text-xs break-all">{nft.mint}</p>
+                </div>
+
+                {nft.collectionMint && (
+                  <div className="grid gap-2">
+                    <h3 className="font-semibold text-sm">Collection</h3>
+                    <p className="text-xs break-all">{nft.collectionMint}</p>
+                  </div>
+                )}
+
+                {nft.uri && (
+                  <div className="grid gap-2">
+                    <h3 className="font-semibold text-sm">Metadata URI</h3>
+                    <p className="text-xs break-all">{nft.uri}</p>
+                  </div>
+                )}
+
+                {modelFileUrl && isOwned && (
+                  <div className="grid gap-2">
+                    <h3 className="font-semibold text-sm">Model File</h3>
+                    <Button onClick={handleDownload} className="text-xs">
+                      <DownloadIcon className="w-4 h-4 mr-2" /> Download Model File
+                    </Button>
+                  </div>
+                )}
+
+                {nft.attributes && nft.attributes.length > 0 && (
+                  <div className="grid gap-2">
+                    <h3 className="font-semibold text-sm">Attributes</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {nft.attributes.map((attr, i) => (
+                        <div key={i} className="bg-secondary p-2 rounded-md text-xs">
+                          <span className="font-semibold">{attr.trait_type}: </span>
+                          <span>{attr.value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
 
-        {/* Second row - Download button if the user owns this NFT and it has a model file */}
+        {/* Download model if owned */}
         {isOwned && modelFileUrl && !showPriceInput && (
           <Button
             variant="default"
