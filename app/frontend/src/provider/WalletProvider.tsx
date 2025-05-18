@@ -36,3 +36,4 @@ export default function WalletProviders({ children }: { children: React.ReactNod
     </ConnectionProvider>
   )
 }
+
