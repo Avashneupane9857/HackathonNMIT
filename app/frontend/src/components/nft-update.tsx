@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react'
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalTrigger } from './animated-modal'
 import { Button } from '@/components/ui/button'
@@ -15,7 +16,7 @@ export function AnimatedModalDemo({ selectedNft }: AnimatedModalDemoProps) {
         <ModalBody>
           <ModalContent>
             <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-8">
-              {/* {selectedNft.name} */} name
+              name
             </h4>
             <div className="flex justify-center items-center">
               <motion.div

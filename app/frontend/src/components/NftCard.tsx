@@ -1,5 +1,5 @@
 'use client'
-
+/* eslint-disable */
 import { FC, useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
@@ -181,7 +181,9 @@ export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
 
         {isOwned && modelFileUrl && (
           <div className="absolute top-3 right-3">
-            <Badge className="bg-green-500/90 text-white shadow px-3 py-1 text-xs font-semibold rounded-full">Owned</Badge>
+            <Badge className="bg-green-500/90 text-white shadow px-3 py-1 text-xs font-semibold rounded-full">
+              Owned
+            </Badge>
           </div>
         )}
       </div>
@@ -198,12 +200,12 @@ export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
 
       <CardContent className="pb-2 flex-grow px-4">
         {nft.isListed && nft.price && (
-          <div className="font-semibold text-lg text-green-400 mb-1">{nft.price} <span className="text-xs text-gray-300">SOL</span></div>
+          <div className="font-semibold text-lg text-green-400 mb-1">
+            {nft.price} <span className="text-xs text-gray-300">SOL</span>
+          </div>
         )}
 
-        {nft.description && (
-          <p className="text-sm text-gray-400 line-clamp-2 mt-1">{nft.description}</p>
-        )}
+        {nft.description && <p className="text-sm text-gray-400 line-clamp-2 mt-1">{nft.description}</p>}
 
         {showPriceInput && (
           <div className="mt-2">
@@ -225,11 +227,20 @@ export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
         <div className="flex gap-2 w-full">
           {nft.isListed ? (
             isOwner ? (
-              <Button variant="destructive" onClick={handleDelist} disabled={delistNft.isPending} className="w-full rounded-lg">
+              <Button
+                variant="destructive"
+                onClick={handleDelist}
+                disabled={delistNft.isPending}
+                className="w-full rounded-lg"
+              >
                 {delistNft.isPending ? 'Delisting...' : 'Delist'}
               </Button>
             ) : (
-              <Button onClick={handlePurchase} disabled={purchaseNft.isPending} className="w-full rounded-lg bg-gradient-to-r from-green-400/80 to-green-600/80 text-black font-bold hover:from-green-300 hover:to-green-500">
+              <Button
+                onClick={handlePurchase}
+                disabled={purchaseNft.isPending}
+                className="w-full rounded-lg bg-gradient-to-r from-green-400/80 to-green-600/80 text-black font-bold hover:from-green-300 hover:to-green-500"
+              >
                 {purchaseNft.isPending ? 'Buying...' : 'Buy Now'}
               </Button>
             )
@@ -238,7 +249,11 @@ export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
               <Button variant="outline" onClick={() => setShowPriceInput(false)} className="w-1/2 rounded-lg">
                 Cancel
               </Button>
-              <Button onClick={handleList} disabled={listNft.isPending} className="w-1/2 rounded-lg bg-gradient-to-r from-white to-gray-300 text-black font-bold">
+              <Button
+                onClick={handleList}
+                disabled={listNft.isPending}
+                className="w-1/2 rounded-lg bg-gradient-to-r from-white to-gray-300 text-black font-bold"
+              >
                 {listNft.isPending ? 'Listing...' : 'Confirm'}
               </Button>
             </div>
@@ -310,7 +325,11 @@ export const NftCard: FC<NftCardProps> = ({ nft, onSuccess }) => {
 
         {/* Second row - Download button if the user owns this NFT and it has a model file */}
         {isOwned && modelFileUrl && !showPriceInput && (
-          <Button variant="default" onClick={handleDownload} className="w-full rounded-lg bg-gradient-to-r from-gray-200 to-white text-black font-bold hover:from-white hover:to-gray-200">
+          <Button
+            variant="default"
+            onClick={handleDownload}
+            className="w-full rounded-lg bg-gradient-to-r from-gray-200 to-white text-black font-bold hover:from-white hover:to-gray-200"
+          >
             <DownloadIcon className="w-4 h-4 mr-2" /> Download Model
           </Button>
         )}

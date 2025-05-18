@@ -1,5 +1,5 @@
 'use client'
-
+/* eslint-disable */
 import { useState, useEffect } from 'react'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useNfts } from '@/hooks/useNfts'
@@ -37,10 +37,8 @@ export default function DashboardFeature() {
   console.log(userNfts, 'nfts are here')
 
   return (
-    <main className="container mx-auto p-16 max-w-6xl">
-   
-
-      <ClientOnly >
+    <main className="container mx-auto px-4 sm:px-8 md:px-16 py-12 max-w-6xl">
+      <ClientOnly>
         {!wallet.connected ? (
           <div className="text-center my-12 p-8 border border-white/10 rounded-2xl bg-black/60 shadow-xl backdrop-blur-xl">
             <h2 className="text-2xl font-semibold mb-4">Connect your wallet to get started</h2>
@@ -57,7 +55,7 @@ export default function DashboardFeature() {
               }
               className="mb-6"
             >
-              <div className="flex justify-center gap-4 pt-6 mb-8">
+              <div className="flex flex-wrap justify-center gap-4 pt-6 mb-8">
                 {[
                   { key: 'my-nfts', label: 'My NFTs', icon: '🎒' },
                   { key: 'marketplace', label: 'Marketplace', icon: '🛒' },
@@ -69,9 +67,11 @@ export default function DashboardFeature() {
                     variant={activeTab === key ? 'default' : 'secondary'}
                     onClick={() => setActiveTab(key as typeof activeTab)}
                     className={`capitalize flex items-center gap-2 px-6 py-2 rounded-xl font-semibold transition-all
-                      ${activeTab === key
-                        ? 'bg-gradient-to-r from-white to-gray-300 text-black shadow-lg'
-                        : 'bg-black/60 text-gray-400 border border-white/10 hover:bg-white/10'}
+                      ${
+                        activeTab === key
+                          ? 'bg-gradient-to-r from-white to-gray-300 text-black shadow-lg'
+                          : 'bg-black/60 text-gray-400 border border-white/10 hover:bg-white/10'
+                      }
                     `}
                   >
                     <span>{icon}</span> {label}

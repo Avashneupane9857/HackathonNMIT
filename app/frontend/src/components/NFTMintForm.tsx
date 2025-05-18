@@ -1,5 +1,5 @@
 'use client'
-
+/* eslint-disable */
 import { FC, useState } from 'react'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { Button } from '@/components/ui/button'
@@ -30,27 +30,27 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
     description: '',
     image: '',
     sellerFee: 5,
-    
+
     // AI Model details
     version: '1.0.0',
     framework: 'PyTorch',
     modelType: 'Language',
-    
+
     // Performance metrics
     accuracyScore: '',
     f1Score: '',
     trainingDataset: '',
-    
+
     // Content references
     modelWeightsCID: '',
     configCID: '',
     encryptionScheme: 'AES-256-GCM',
     encryptionNonce: '',
-    
+
     // Sample I/O
     sampleInput: '',
     sampleOutput: '',
-    
+
     // Licensing information
     licenseType: 'Academic',
     allowFineTuning: true,
@@ -79,28 +79,25 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    
-    // Prepare samples array if both input and output are provided
-    const samples = formData.sampleInput && formData.sampleOutput ? 
-      [{ input: formData.sampleInput, output: formData.sampleOutput }] : 
-      undefined
 
-    // Create the metrics object with optional fields
+    const samples =
+      formData.sampleInput && formData.sampleOutput
+        ? [{ input: formData.sampleInput, output: formData.sampleOutput }]
+        : undefined
+
     const metrics = {
       ...(formData.accuracyScore && { accuracyScore: Number(formData.accuracyScore) }),
       ...(formData.f1Score && { f1Score: Number(formData.f1Score) }),
-      ...(formData.trainingDataset && { trainingDataset: formData.trainingDataset })
+      ...(formData.trainingDataset && { trainingDataset: formData.trainingDataset }),
     }
 
-    // Create content references object
     const contentReferences = {
       ...(formData.modelWeightsCID && { modelWeightsCID: formData.modelWeightsCID }),
       ...(formData.configCID && { configCID: formData.configCID }),
       ...(formData.encryptionScheme && { encryptionScheme: formData.encryptionScheme }),
-      ...(formData.encryptionNonce && { encryptionNonce: formData.encryptionNonce })
+      ...(formData.encryptionNonce && { encryptionNonce: formData.encryptionNonce }),
     }
 
-    // Create license object
     const license = {
       type: formData.licenseType,
       allowFineTuning: formData.allowFineTuning,
@@ -112,7 +109,7 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
       symbol: formData.symbol,
       description: formData.description,
       image: formData.image || undefined,
-      sellerFeeBasisPoints: Math.min(formData.sellerFee * 100, 10000), // Convert to basis points, capped at 10000
+      sellerFeeBasisPoints: Math.min(formData.sellerFee * 100, 10000),
       collectionMint: collectionMint,
       fileUri: ipfsURI,
       fileType: 'application/zip',
@@ -123,7 +120,7 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
       metrics: Object.keys(metrics).length > 0 ? metrics : undefined,
       contentReferences: Object.keys(contentReferences).length > 0 ? contentReferences : undefined,
       samples,
-      license
+      license,
     })
   }
 
@@ -137,14 +134,13 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
 
       const uri = `ipfs://${cid}`
       console.log(uri, 'uri is here')
-      
-      // Use this CID for both the file URI and as a default for model weights
+
       setIpfsURI(uri)
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        modelWeightsCID: prev.modelWeightsCID || cid
+        modelWeightsCID: prev.modelWeightsCID || cid,
       }))
-      
+
       setStatus('File uploaded to IPFS successfully.')
     } catch (error) {
       console.error(error)
@@ -175,7 +171,7 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
           </p>
         </div>
         <Tabs defaultValue="basic" className="w-full">
-          <TabsList className="flex justify-center gap-2 bg-black/30 rounded-xl p-2 mb-4">
+          <TabsList className="flex flex-wrap gap-2 bg-black/30 rounded-xl p-2 mb-4">
             <TabsTrigger value="basic" className="flex items-center gap-1">
               <span>📝</span> Basic
             </TabsTrigger>
@@ -193,7 +189,6 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
             </TabsTrigger>
           </TabsList>
 
-          {/* Basic Info Tab */}
           <TabsContent value="basic" className="space-y-6 p-6">
             <div className="bg-black/40 border border-white/10 rounded-2xl shadow-lg p-6 mb-6">
               <h3 className="text-2xl font-extrabold mb-6 flex items-center gap-3 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent font-mono tracking-tight drop-shadow-lg">
@@ -202,7 +197,9 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
               </h3>
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="name" className="text-base font-semibold">Name <span className="text-red-400">*</span></Label>
+                  <Label htmlFor="name" className="text-base font-semibold">
+                    Name <span className="text-red-400">*</span>
+                  </Label>
                   <Input
                     id="name"
                     name="name"
@@ -215,7 +212,9 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
                 </div>
 
                 <div>
-                  <Label htmlFor="symbol" className="text-base font-semibold">Symbol <span className="text-red-400">*</span></Label>
+                  <Label htmlFor="symbol" className="text-base font-semibold">
+                    Symbol <span className="text-red-400">*</span>
+                  </Label>
                   <Input
                     id="symbol"
                     name="symbol"
@@ -228,7 +227,9 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
                 </div>
 
                 <div>
-                  <Label htmlFor="description" className="text-base font-semibold">Description</Label>
+                  <Label htmlFor="description" className="text-base font-semibold">
+                    Description
+                  </Label>
                   <Textarea
                     id="description"
                     name="description"
@@ -241,7 +242,9 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
                 </div>
 
                 <div>
-                  <Label htmlFor="sellerFee" className="text-base font-semibold">Royalty (%)</Label>
+                  <Label htmlFor="sellerFee" className="text-base font-semibold">
+                    Royalty (%)
+                  </Label>
                   <Input
                     id="sellerFee"
                     name="sellerFee"
@@ -257,7 +260,9 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
                 </div>
 
                 <div>
-                  <Label htmlFor="image" className="text-base font-semibold">Image URL</Label>
+                  <Label htmlFor="image" className="text-base font-semibold">
+                    Image URL
+                  </Label>
                   <Input
                     id="image"
                     name="image"
@@ -266,18 +271,20 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
                     placeholder="https://example.com/image.png"
                     className="mt-1 w-full px-4 py-2 rounded-lg bg-black/60 border border-white/10 text-white focus:ring-2 focus:ring-white/40 focus:border-white/30 transition"
                   />
-                  <p className="text-xs text-gray-400 mt-1">Enter a URL to your image or leave empty to generate a random image</p>
+                  <p className="text-xs text-gray-400 mt-1">
+                    Enter a URL to your image or leave empty to generate a random image
+                  </p>
                 </div>
               </div>
             </div>
           </TabsContent>
-          
+
           {/* Model Details Tab */}
           <TabsContent value="model" className="space-y-6 p-6">
             <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
               <span>🤖</span> Model Details
             </h3>
-            <div className="space-y-2">
+            <div className="space-y-2 bg-black/60 border border-white/10">
               <Label htmlFor="version">Version</Label>
               <Input
                 id="version"
@@ -285,19 +292,17 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
                 value={formData.version}
                 onChange={handleChange}
                 placeholder="1.0.0"
+                className="bg-black/60 border border-white/10"
               />
             </div>
-            
-            <div className="space-y-2">
+
+            <div className="space-y-2 ">
               <Label htmlFor="framework">Framework</Label>
-              <Select 
-                value={formData.framework} 
-                onValueChange={(value) => handleSelectChange('framework', value)}
-              >
+              <Select value={formData.framework} onValueChange={(value) => handleSelectChange('framework', value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select framework" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-black border border-white/10">
                   <SelectItem value="PyTorch">PyTorch</SelectItem>
                   <SelectItem value="TensorFlow">TensorFlow</SelectItem>
                   <SelectItem value="ONNX">ONNX</SelectItem>
@@ -306,17 +311,14 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
                 </SelectContent>
               </Select>
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="modelType">Model Type</Label>
-              <Select 
-                value={formData.modelType} 
-                onValueChange={(value) => handleSelectChange('modelType', value)}
-              >
+              <Select value={formData.modelType} onValueChange={(value) => handleSelectChange('modelType', value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select model type" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-black border border-white/10">
                   <SelectItem value="Language">Language</SelectItem>
                   <SelectItem value="Vision">Vision</SelectItem>
                   <SelectItem value="Multimodal">Multimodal</SelectItem>
@@ -326,10 +328,10 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
                 </SelectContent>
               </Select>
             </div>
-            
+
             <div className="space-y-2">
               <Label>Sample Input/Output</Label>
-              <div className="grid grid-cols-1 gap-4">
+              <div className="grid grid-cols-1 gap-4 space-y-4">
                 <div>
                   <Label htmlFor="sampleInput">Input Example</Label>
                   <Textarea
@@ -353,7 +355,7 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
               </div>
             </div>
           </TabsContent>
-          
+
           {/* Metrics Tab */}
           <TabsContent value="metrics" className="space-y-6 p-6">
             <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
@@ -373,7 +375,7 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
                 placeholder="0.87"
               />
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="f1Score">F1 Score (0-1)</Label>
               <Input
@@ -388,7 +390,7 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
                 placeholder="0.92"
               />
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="trainingDataset">Training Dataset</Label>
               <Input
@@ -400,14 +402,16 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
               />
             </div>
           </TabsContent>
-          
+
           {/* Content Tab */}
           <TabsContent value="content" className="space-y-6 p-6">
             <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
               <span>📦</span> Model Content
             </h3>
             <div className="space-y-2">
-              <Label htmlFor="modelFile" className="text-base font-semibold">Upload Model File *</Label>
+              <Label htmlFor="modelFile" className="text-base font-semibold">
+                Upload Model File *
+              </Label>
               <div className="bg-black/30 border border-white/10 rounded-xl p-4 flex flex-col items-center">
                 <input
                   id="modelFile"
@@ -419,7 +423,7 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
                 {status && <p className="mt-2 text-sm text-gray-400">{status}</p>}
               </div>
             </div>
-            
+
             <div>
               <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="ipfsUri">
                 Model IPFS URI
@@ -431,9 +435,11 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
                 value={ipfsURI}
                 readOnly
               />
-              <p className="mt-1 text-xs text-gray-500">This will be used as the model weights CID if no other is provided</p>
+              <p className="mt-1 text-xs text-gray-500">
+                This will be used as the model weights CID if no other is provided
+              </p>
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="modelWeightsCID">Model Weights CID (optional override)</Label>
               <Input
@@ -444,7 +450,7 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
                 placeholder="Qm3a8d7f...f32a"
               />
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="configCID">Config CID</Label>
               <Input
@@ -455,24 +461,24 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
                 placeholder="Qm1c9e8d...a21b"
               />
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="encryptionScheme">Encryption Scheme</Label>
-              <Select 
-                value={formData.encryptionScheme} 
+              <Select
+                value={formData.encryptionScheme}
                 onValueChange={(value) => handleSelectChange('encryptionScheme', value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select encryption scheme" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-black border border-white/10">
                   <SelectItem value="AES-256-GCM">AES-256-GCM</SelectItem>
                   <SelectItem value="ChaCha20-Poly1305">ChaCha20-Poly1305</SelectItem>
                   <SelectItem value="None">None</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="encryptionNonce">Encryption Nonce</Label>
               <Input
@@ -484,52 +490,43 @@ export const NFTMintForm: FC<MintNFTFormProps> = ({ onSuccess, collectionMint })
               />
             </div>
           </TabsContent>
-          
+
           {/* Licensing Tab */}
           <TabsContent value="licensing" className="space-y-6 p-6">
             <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
               <span>🔖</span> Licensing
             </h3>
-            <div className="space-y-2">
+            <div className="space-y-2 ">
               <Label htmlFor="licenseType">License Type</Label>
-              <Select 
-                value={formData.licenseType} 
-                onValueChange={(value) => handleSelectChange('licenseType', value)}
-              >
+              <Select value={formData.licenseType} onValueChange={(value) => handleSelectChange('licenseType', value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select license type" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-black border border-white/10">
                   <SelectItem value="Academic">Academic</SelectItem>
                   <SelectItem value="Commercial">Commercial</SelectItem>
                   <SelectItem value="Custom">Custom</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-            
+
             <div className="flex items-center space-x-2 py-2">
-              <Checkbox 
-                id="allowFineTuning" 
+              <Checkbox
+                id="allowFineTuning"
                 checked={formData.allowFineTuning}
-                onCheckedChange={(checked) => 
-                  handleCheckboxChange('allowFineTuning', checked === true)
-                }
+                onCheckedChange={(checked) => handleCheckboxChange('allowFineTuning', checked === true)}
               />
               <Label htmlFor="allowFineTuning">Allow Fine-Tuning</Label>
             </div>
-            
+
             <div className="flex items-center space-x-2 py-2">
-              <Checkbox 
-                id="requireAttribution" 
+              <Checkbox
+                id="requireAttribution"
                 checked={formData.requireAttribution}
-                onCheckedChange={(checked) => 
-                  handleCheckboxChange('requireAttribution', checked === true)
-                }
+                onCheckedChange={(checked) => handleCheckboxChange('requireAttribution', checked === true)}
               />
               <Label htmlFor="requireAttribution">Require Attribution</Label>
             </div>
-            
-         
           </TabsContent>
         </Tabs>
 

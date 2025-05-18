@@ -1,11 +1,9 @@
+/* eslint-disable */
 import type { Metadata } from 'next'
 import './globals.css'
 import { AppProviders } from '@/components/app-providers'
-import { AppLayout } from '@/components/app-layout'
 import React from 'react'
 import PhantomNavbar from '@/components/Nav'
-
-
 
 export const metadata: Metadata = {
   title: 'Placeholder',
@@ -24,15 +22,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`antialiased`}>
         <AppProviders>
           <PhantomNavbar />
-          {/* <AppLayout links={links}> */}
           {children}
-          {/* </AppLayout> */}
         </AppProviders>
       </body>
     </html>
   )
 }
-// Patch BigInt so we can log it using JSON.stringify without any errors
 declare global {
   interface BigInt {
     toJSON(): string

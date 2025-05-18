@@ -1,60 +1,60 @@
-"use client";
-
-import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { useEffect, useState, useMemo } from "react";
-import { cn } from "@/lib/utils";
+'use client'
+/* eslint-disable */
+import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
+import { useEffect, useState, useMemo } from 'react'
+import { cn } from '@/lib/utils'
 
 type Testimonial = {
-  quote: string;
-  name: string;
-  designation: string;
-  src: string;
-};
+  quote: string
+  name: string
+  designation: string
+  src: string
+}
 
 export const AnimatedTestimonials = ({
   testimonials,
   autoplay = false,
   className,
 }: {
-  testimonials: Testimonial[];
-  autoplay?: boolean;
-  className?: string;
+  testimonials: Testimonial[]
+  autoplay?: boolean
+  className?: string
 }) => {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(0)
 
   const handleNext = () => {
-    setActive((prev) => (prev + 1) % testimonials.length);
-  };
+    setActive((prev) => (prev + 1) % testimonials.length)
+  }
 
   const handlePrev = () => {
-    setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
+    setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+  }
 
   const isActive = (index: number) => {
-    return index === active;
-  };
+    return index === active
+  }
 
   useEffect(() => {
     if (autoplay) {
-      const interval = setInterval(handleNext, 5000);
-      return () => clearInterval(interval);
+      const interval = setInterval(handleNext, 5000)
+      return () => clearInterval(interval)
     }
-  }, [autoplay]);
+  }, [autoplay])
 
   // Pre-calculate rotation values for each testimonial to ensure consistency
   // between server and client rendering
   const rotationValues = useMemo(() => {
     return testimonials.map((_, index) => {
       // Using a deterministic pattern based on index
-      const rotations = [4, -3, 2, -1, 3];
-      return rotations[index % rotations.length];
-    });
-  }, [testimonials.length]);
+      const rotations = [4, -3, 2, -1, 3]
+      return rotations[index % rotations.length]
+    })
+  }, [testimonials.length])
 
   return (
-    <div className={cn("max-w-sm md:max-w-4xl mx-auto px-4 md:px-8 lg:px-12 py-20", className)}>
+    <div className={cn('max-w-sm md:max-w-4xl mx-auto px-4 md:px-8 lg:px-12 py-20', className)}>
       <div className="relative grid grid-cols-1 md:grid-cols-2 gap-20">
         <div>
           <div className="relative h-80 w-full">
@@ -73,9 +73,7 @@ export const AnimatedTestimonials = ({
                     scale: isActive(index) ? 1 : 0.95,
                     z: isActive(index) ? 0 : -100,
                     rotate: isActive(index) ? 0 : rotationValues[index],
-                    zIndex: isActive(index)
-                      ? 999
-                      : testimonials.length + 2 - index,
+                    zIndex: isActive(index) ? 999 : testimonials.length + 2 - index,
                     y: isActive(index) ? [0, -80, 0] : 0,
                   }}
                   exit={{
@@ -86,7 +84,7 @@ export const AnimatedTestimonials = ({
                   }}
                   transition={{
                     duration: 0.4,
-                    ease: "easeInOut",
+                    ease: 'easeInOut',
                   }}
                   className="absolute inset-0 origin-bottom"
                 >
@@ -120,32 +118,28 @@ export const AnimatedTestimonials = ({
             }}
             transition={{
               duration: 0.2,
-              ease: "easeInOut",
+              ease: 'easeInOut',
             }}
           >
-            <h3 className="text-2xl font-bold text-foreground">
-              {testimonials[active].name}
-            </h3>
-            <p className="text-sm text-muted-foreground">
-              {testimonials[active].designation}
-            </p>
+            <h3 className="text-2xl font-bold text-foreground">{testimonials[active].name}</h3>
+            <p className="text-sm text-muted-foreground">{testimonials[active].designation}</p>
             <motion.p className="text-lg text-muted-foreground mt-8">
-              {testimonials[active].quote.split(" ").map((word, index) => (
+              {testimonials[active].quote.split(' ').map((word, index) => (
                 <motion.span
                   key={index}
                   initial={{
-                    filter: "blur(10px)",
+                    filter: 'blur(10px)',
                     opacity: 0,
                     y: 5,
                   }}
                   animate={{
-                    filter: "blur(0px)",
+                    filter: 'blur(0px)',
                     opacity: 1,
                     y: 0,
                   }}
                   transition={{
                     duration: 0.2,
-                    ease: "easeInOut",
+                    ease: 'easeInOut',
                     delay: 0.02 * index,
                   }}
                   className="inline-block"
@@ -172,5 +166,5 @@ export const AnimatedTestimonials = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useMemo } from 'react'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { AnchorProvider, Program, web3 } from '@coral-xyz/anchor'

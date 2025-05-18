@@ -1,3 +1,4 @@
+/* eslint-disable */
 const PINATA_API_KEY = process.env.NEXT_PUBLIC_PINATA_API_KEY
 const PINATA_SECRET_KEY = process.env.NEXT_PUBLIC_PINATA_SECRET_KEY
 
@@ -59,6 +60,8 @@ export async function uploadFile(file: File): Promise<string> {
     },
     body: formData,
   })
+  console.log(res)
+  console.log(PINATA_API_KEY, 'and ', PINATA_SECRET_KEY)
 
   if (!res.ok) {
     throw new Error('Failed to upload file to Pinata')

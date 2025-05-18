@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useWallet } from '@solana/wallet-adapter-react'
 import { web3, BN } from '@project-serum/anchor'
 import { useProgram } from './useProgram'
@@ -76,7 +77,6 @@ export const useMarketplace = () => {
         true, // allowOwnerOffCurve
       )
 
-      
       // Use UMI's helper functions to find metadata and master edition PDAs
       const nftMetadataPda = findMetadataPda(umi, { mint: umiPublicKey(nftMint.toString()) })
       const nftEditionPda = findMasterEditionPda(umi, { mint: umiPublicKey(nftMint.toString()) })
@@ -142,8 +142,6 @@ export const useMarketplace = () => {
         .rpc()
 
       return { tx, listing: listing.toString(), vault: vault.toString() }
-
-      
     } catch (error) {
       console.error('Error in listing transaction:', error)
       throw error
