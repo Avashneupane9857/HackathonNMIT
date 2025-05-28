@@ -15,14 +15,12 @@ export default function Home() {
   return (
     <div className="bg-gradient-to-br from-black via-[#111] to-black min-h-screen text-white">
       <div className="relative z-10">
-        {/* Hero Section */}
         <motion.section
           initial="hidden"
           animate="visible"
           variants={containerVariants}
           className="relative flex items-center justify-center overflow-hidden py-24"
         >
-          {/* Animated Gradient Background */}
           <motion.div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -33,7 +31,6 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2 }}
           />
-          {/* Animated Blobs */}
           <div className="absolute w-80 h-80 bg-white/10 rounded-full blur-3xl top-[-6rem] left-[-6rem] animated-blob" />
           <div className="absolute w-72 h-72 bg-white/5 rounded-full blur-2xl bottom-[-6rem] right-[-6rem] animated-blob" />
           <div className="container mx-auto px-4 z-10">
@@ -82,7 +79,176 @@ export default function Home() {
             </motion.div>
           </div>
         </motion.section>
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={containerVariants}
+          className="py-20 relative overflow-hidden"
+        >
+          <div className="absolute inset-0 pointer-events-none z-0">
+            <div className="absolute w-96 h-96 bg-gradient-to-r from-[#a18cd1]/20 to-[#fbc2eb]/20 rounded-full blur-3xl top-0 left-0 animated-blob" />
+            <div className="absolute w-80 h-80 bg-gradient-to-l from-[#fbc2eb]/15 to-[#a18cd1]/15 rounded-full blur-2xl bottom-0 right-0 animated-blob" />
+          </div>
+          <div className="container mx-auto px-4 relative z-10">
+            <motion.div variants={fadeInUp} className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+                From Code to Scalable AI -
+              </h2>
+              <h3 className="text-2xl md:text-4xl font-bold text-white">In Just Three Steps</h3>
+            </motion.div>
 
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+              <motion.div variants={itemVariants} whileHover={{ y: -10, scale: 1.02 }} className="relative group">
+                <div className="bg-gradient-to-br from-[#18192a]/90 to-[#1a1b2e]/90 backdrop-blur-sm rounded-3xl p-8 border border-white/10 shadow-2xl h-full">
+                  <div className="mb-6">
+                    <span className="inline-block px-4 py-2 bg-gradient-to-r from-[#a18cd1] to-[#fbc2eb] text-black font-bold rounded-full text-sm">
+                      Step 1
+                    </span>
+                  </div>
+
+                  <div className="mb-6">
+                    <h3 className="text-3xl font-bold text-white mb-4">Upload</h3>
+                    <p className="text-gray-300 text-lg mb-6">
+                      Upload your code <span className="text-[#a18cd1] font-semibold">directly</span> or integrate with
+                      your code repositories.
+                    </p>
+                  </div>
+
+                  <div className="space-y-4 mb-8">
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <div className="w-2 h-2 bg-[#a18cd1] rounded-full"></div>
+                      <span>Support any framework</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <div className="w-2 h-2 bg-[#a18cd1] rounded-full"></div>
+                      <span>Secure file-handling through encrypted data transfer</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <div className="w-2 h-2 bg-[#a18cd1] rounded-full"></div>
+                      <span>Error feedback and diagnostics for instant feedback</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-white/5 border border-white/10 rounded-xl p-4 backdrop-blur-sm">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-gray-400 text-sm">Upload your model</span>
+                      <span className="text-gray-500 text-xs">Cancel</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 bg-white/5 rounded-lg">
+                      <div className="w-4 h-4 bg-yellow-500 rounded"></div>
+                      <span className="text-gray-300 text-sm">AI_Model_v2.py</span>
+                      <span className="text-gray-500 text-xs ml-auto">2.1MB</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div variants={itemVariants} whileHover={{ y: -10, scale: 1.02 }} className="relative group">
+                <div className="bg-gradient-to-br from-[#18192a]/90 to-[#1a1b2e]/90 backdrop-blur-sm rounded-3xl p-8 border border-white/10 shadow-2xl h-full">
+                  <div className="mb-6">
+                    <span className="inline-block px-4 py-2 bg-gradient-to-r from-[#a18cd1] to-[#fbc2eb] text-black font-bold rounded-full text-sm">
+                      Step 2
+                    </span>
+                  </div>
+
+                  <div className="mb-6">
+                    <h3 className="text-3xl font-bold text-white mb-4">Build</h3>
+                    <p className="text-gray-300 text-lg mb-6">
+                      <span className="text-[#fbc2eb] font-semibold">Escape from package and version hell!</span> The
+                      build box is like having a team of 10 ML engineers at your disposal.
+                    </p>
+                  </div>
+
+                  <div className="space-y-4 mb-8">
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <div className="w-2 h-2 bg-[#fbc2eb] rounded-full"></div>
+                      <span>Automatic Containerization</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <div className="w-2 h-2 bg-[#fbc2eb] rounded-full"></div>
+                      <span>Built-in GPU/CUDA compatibility</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <div className="w-2 h-2 bg-[#fbc2eb] rounded-full"></div>
+                      <span>Input-output validation and field mapping</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-white/5 border border-white/10 rounded-xl p-4 backdrop-blur-sm">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-gray-400 text-sm">Python Project Settings</span>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 p-2 bg-blue-600/20 rounded-lg border border-blue-500/30">
+                        <span className="text-blue-300 text-sm">main.py</span>
+                      </div>
+                      <div className="p-2 bg-green-600/10 rounded-lg border border-green-500/20">
+                        <span className="text-green-300 text-xs">✓ Build config ready</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div variants={itemVariants} whileHover={{ y: -10, scale: 1.02 }} className="relative group">
+                <div className="bg-gradient-to-br from-[#18192a]/90 to-[#1a1b2e]/90 backdrop-blur-sm rounded-3xl p-8 border border-white/10 shadow-2xl h-full">
+                  <div className="mb-6">
+                    <span className="inline-block px-4 py-2 bg-gradient-to-r from-[#a18cd1] to-[#fbc2eb] text-black font-bold rounded-full text-sm">
+                      Step 3
+                    </span>
+                  </div>
+
+                  <div className="mb-6">
+                    <h3 className="text-3xl font-bold text-white mb-4">Deploy</h3>
+                    <p className="text-gray-300 text-lg mb-6">
+                      Deploy your AI model to the{' '}
+                      <span className="text-[#a18cd1] font-semibold">decentralized marketplace</span> and start earning
+                      from your innovations.
+                    </p>
+                  </div>
+
+                  <div className="space-y-4 mb-8">
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <div className="w-2 h-2 bg-[#a18cd1] rounded-full"></div>
+                      <span>Instant global distribution</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <div className="w-2 h-2 bg-[#a18cd1] rounded-full"></div>
+                      <span>Automated scaling and load balancing</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <div className="w-2 h-2 bg-[#a18cd1] rounded-full"></div>
+                      <span>Smart contract-based monetization</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-xl p-4 backdrop-blur-sm">
+                    <div className="text-center">
+                      <h4 className="text-white font-semibold mb-2">How much hardware does your model need?</h4>
+                      <div className="flex items-center justify-center gap-2">
+                        <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                        <span className="text-green-300 text-sm">Ready to deploy</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            <motion.div variants={fadeInUp} className="text-center mt-16">
+              <Link href="/marketplace">
+                <Button
+                  size="lg"
+                  className="group bg-gradient-to-r from-[#a18cd1] to-[#fbc2eb] text-black font-bold shadow-lg hover:scale-105 transition-transform px-8 py-3"
+                >
+                  Start Building Now{' '}
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+            </motion.div>
+          </div>
+        </motion.section>
         {/* Why Choose Section */}
         <motion.section
           initial="hidden"
@@ -164,10 +330,6 @@ export default function Home() {
           </div>
         </motion.section>
 
-        {/* Testimonials and CTA */}
-        <TestiMonials />
-
-        {/* Stats Section - Add visual interest between testimonials and footer */}
         <motion.section
           initial="hidden"
           whileInView="visible"
@@ -175,7 +337,6 @@ export default function Home() {
           variants={containerVariants}
           className="py-16 relative overflow-hidden"
         >
-          {/* Animated gradient background */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -184,7 +345,6 @@ export default function Home() {
             }}
           />
 
-          {/* Stats Cards */}
           <div className="container mx-auto px-4 relative z-10">
             <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold text-center mb-16 tracking-tight">
               Powering the Future of{' '}
@@ -192,31 +352,6 @@ export default function Home() {
                 AI Ownership
               </span>
             </motion.h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              {[
-                { value: '5K+', label: 'AI Models', icon: '🧠' },
-                { value: '2.4M', label: 'Trading Volume', icon: '💰' },
-                { value: '10K+', label: 'Creators', icon: '👩‍💻' },
-                { value: '100%', label: 'Decentralized', icon: '🔗' },
-              ].map((stat, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  whileHover={{ y: -5, scale: 1.03 }}
-                  className="bg-[#18192a]/30 backdrop-blur-sm border border-white/5 rounded-xl p-6 text-center shadow-xl"
-                  style={{
-                    boxShadow: '0 4px 20px rgba(161,140,209,0.15)',
-                  }}
-                >
-                  <div className="text-4xl mb-2">{stat.icon}</div>
-                  <div className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
-                    {stat.value}
-                  </div>
-                  <div className="text-gray-400 mt-1">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </motion.section>
 

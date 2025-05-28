@@ -51,8 +51,8 @@ export default function PhantomNavbar() {
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 w-full z-50",
-        "backdrop-blur-lg bg-[#10101a]/90 border-b border-[#23243a] shadow-[0_2px_24px_0_rgba(20,20,40,0.25)]"
+        'fixed top-0 left-0 w-full z-50',
+        'backdrop-blur-lg bg-[#10101a]/90 border-b border-[#23243a] shadow-[0_2px_24px_0_rgba(20,20,40,0.25)]',
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,7 +79,7 @@ export default function PhantomNavbar() {
                 className="bg-gradient-to-r cursor-pointer from-white to-gray-300 text-black font-bold shadow-md hover:scale-105 transition-transform border-0"
                 style={{
                   backdropFilter: 'blur(8px)',
-                  boxShadow: '0 2px 16px 0 rgba(161,140,209,0.15)'
+                  boxShadow: '0 2px 16px 0 rgba(161,140,209,0.15)',
                 }}
               >
                 <Wallet className="mr-2 h-4 w-4" />
@@ -93,7 +93,7 @@ export default function PhantomNavbar() {
                     className="border-white text-white bg-black/80 font-bold hover:bg-white/10 transition-all"
                     style={{
                       backdropFilter: 'blur(8px)',
-                      boxShadow: '0 2px 16px 0 rgba(161,140,209,0.10)'
+                      boxShadow: '0 2px 16px 0 rgba(161,140,209,0.10)',
                     }}
                   >
                     <Wallet className="mr-2 h-4 w-4" />
@@ -128,12 +128,9 @@ export default function PhantomNavbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-[#10101a]/95 backdrop-blur-lg border-b border-[#23243a] shadow-lg">
-          <div className="px-4 pt-4 pb-4 space-y-2">
-            {/* No navigation links as requested */}
-          </div>
+          <div className="px-4 pt-4 pb-4 space-y-2"></div>
         </div>
       )}
     </nav>
